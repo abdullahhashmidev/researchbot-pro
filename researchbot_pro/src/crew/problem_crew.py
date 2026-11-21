@@ -28,7 +28,6 @@ class ProblemSolvingCrew:
         )
 
     def _build_tasks(self) -> list:
-        p = self.problem_data
 
         clarify_task = Task(
             description=(

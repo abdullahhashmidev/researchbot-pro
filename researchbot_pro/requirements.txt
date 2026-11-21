@@ -1,7 +1,6 @@
 streamlit>=1.32.0
 crewai
 langgraph
-langchain-groq
 groq>=0.11.0
 duckduckgo-search
 rich
@@ -10,3 +9,4 @@ pandas>=2.0.0
 numpy
 openpyxl
 python-dotenv>=1.0.0
+pydantic

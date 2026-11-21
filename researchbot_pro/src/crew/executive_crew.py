@@ -129,7 +129,7 @@ class PromptEngineeringCrew:
 
         prompt_task = Task(
             description=(
-                f"Analyze and improve this prompt:\n\n"
+                "Analyze and improve this prompt:\n\n"
                 "ORIGINAL PROMPT:\n{original_prompt}\n\n"
                 "USE CASE: {use_case}\n\n"
                 "DELIVERABLES:\n"
