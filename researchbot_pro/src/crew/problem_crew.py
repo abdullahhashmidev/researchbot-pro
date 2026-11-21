@@ -14,6 +14,8 @@ class ProblemSolvingCrew:
 
     def __init__(self, problem_data: dict) -> None:
         self.problem_data = problem_data
+        self._inputs = {k: str(problem_data.get(k, 'N/A')) for k in
+                        ['problem', 'industry', 'goal', 'constraints', 'budget', 'timeline']}
         self.clarifier = create_clarifier()
         self.solver = create_problem_solver()
         self.risk_analyst = create_risk_analyst()
@@ -30,13 +32,13 @@ class ProblemSolvingCrew:
 
         clarify_task = Task(
             description=(
-                f"Clarify and structure this business problem:\n\n"
-                f"Problem: {p.get('problem', 'N/A')}\n"
-                f"Industry: {p.get('industry', 'N/A')}\n"
-                f"Goal: {p.get('goal', 'N/A')}\n"
-                f"Constraints: {p.get('constraints', 'N/A')}\n"
-                f"Budget: {p.get('budget', 'N/A')}\n"
-                f"Timeline: {p.get('timeline', 'N/A')}\n\n"
+                "Clarify and structure this business problem:\n\n"
+                "Problem: {problem}\n"
+                "Industry: {industry}\n"
+                "Goal: {goal}\n"
+                "Constraints: {constraints}\n"
+                "Budget: {budget}\n"
+                "Timeline: {timeline}\n\n"
                 "DELIVERABLES:\n"
                 "1. Restated problem (clear, specific)\n"
                 "2. Root problem vs symptoms\n"
@@ -86,5 +88,5 @@ class ProblemSolvingCrew:
         return [clarify_task, solve_task, risk_task]
 
     def run(self) -> str:
-        result = self._crew.kickoff(inputs=self.problem_data)
+        result = self._crew.kickoff(inputs=self._inputs)
         return str(result)

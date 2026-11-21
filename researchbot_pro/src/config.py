@@ -2,33 +2,33 @@
 Configuration Manager
 ---------------------
 Sab environment variables ek jagah manage hoti hain.
-Puri application yahan se config read karti hai.
 """
 
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Project root (src/ ka parent). Relative paths ki jagah is se absolute paths banate hain,
+# taake app kisi bhi working directory se chale to outputs same jagah save hon.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 class Config:
-    """Application-wide configuration (singleton pattern)"""
+    """Application-wide configuration"""
 
     # ── LLM ─────────────────────────────────────────
-    GROQ_API_KEY : str   = os.getenv("GROQ_API_KEY", "")
-    MODEL_NAME   : str   = os.getenv("MODEL_NAME",   "groq/llama-3.3-70b-versatile")
-    TEMPERATURE  : float = float(os.getenv("TEMPERATURE",  "0.3"))
-    MAX_TOKENS   : int   = int(os.getenv("MAX_TOKENS",     "8192"))
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    MODEL_NAME: str = os.getenv("MODEL_NAME", "groq/llama-3.3-70b-versatile")
 
     # ── Output ──────────────────────────────────────
-    OUTPUT_DIR   : str   = os.getenv("OUTPUT_DIR",  "outputs")
+    OUTPUT_DIR: str = str(Path(os.getenv("OUTPUT_DIR", BASE_DIR / "outputs")).resolve())
 
     @classmethod
     def validate(cls) -> None:
-        """
-        App start hone se pehle config validate karo.
-        Missing ya invalid config pe clear error dega.
-        """
+        """App start hone se pehle config validate karo."""
         if not cls.GROQ_API_KEY:
             raise ValueError(
                 "\n❌  GROQ_API_KEY is missing!\n"
@@ -41,5 +41,4 @@ class Config:
         os.makedirs(cls.OUTPUT_DIR, exist_ok=True)
 
 
-# Module-level singleton — import karke seedha use karo
 config = Config()

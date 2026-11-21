@@ -29,7 +29,7 @@ class CEOReportCrew:
 
         research_task = Task(
             description=(
-                f"Research and gather data about: {self.context}\n"
+                "Research and gather data about: {context}\n"
                 "Focus on: market position, competitors, opportunities, "
                 "industry trends, and strategic landscape."
             ),
@@ -39,7 +39,7 @@ class CEOReportCrew:
 
         ceo_task = Task(
             description=(
-                f"Write a CEO-level strategic report for {self.company}.\n\n"
+                "Write a CEO-level strategic report for {company}.\n\n"
                 "REQUIRED SECTIONS:\n"
                 "# Executive Summary (3 bullets max)\n"
                 "## Situation Analysis\n"
@@ -61,7 +61,7 @@ class CEOReportCrew:
 
     def run(self) -> str:
         result = self._crew.kickoff(
-            inputs={"topic": self.context, "company": self.company}
+            inputs={"context": self.context, "company": self.company}
         )
         return str(result)
 
@@ -83,8 +83,8 @@ class CFOReportCrew:
 
         cfo_task = Task(
             description=(
-                f"Analyze this financial context for {self.company}:\n\n"
-                f"{self.financial_context}\n\n"
+                "Analyze this financial context for {company}:\n\n"
+                "{financial_context}\n\n"
                 "REQUIRED SECTIONS:\n"
                 "# CFO Report — Executive Financial Summary\n"
                 "## Revenue Snapshot\n"
@@ -107,7 +107,7 @@ class CFOReportCrew:
 
     def run(self) -> str:
         result = self._crew.kickoff(
-            inputs={"topic": self.financial_context}
+            inputs={"company": self.company, "financial_context": self.financial_context}
         )
         return str(result)
 
@@ -130,8 +130,8 @@ class PromptEngineeringCrew:
         prompt_task = Task(
             description=(
                 f"Analyze and improve this prompt:\n\n"
-                f"ORIGINAL PROMPT:\n{self.original_prompt}\n\n"
-                f"USE CASE: {self.use_case}\n\n"
+                "ORIGINAL PROMPT:\n{original_prompt}\n\n"
+                "USE CASE: {use_case}\n\n"
                 "DELIVERABLES:\n"
                 "## Prompt Analysis\n"
                 "- What works\n"
@@ -163,6 +163,6 @@ class PromptEngineeringCrew:
 
     def run(self) -> str:
         result = self._crew.kickoff(
-            inputs={"topic": self.use_case}
+            inputs={"original_prompt": self.original_prompt, "use_case": self.use_case}
         )
         return str(result)

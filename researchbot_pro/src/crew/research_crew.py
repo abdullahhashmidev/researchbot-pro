@@ -28,7 +28,7 @@ class ResearchCrew:
 
         research_task = Task(
             description=(
-                f"Research the topic: \"{self.topic}\"\n\n"
+                "Research the topic: \"{topic}\"\n\n"
                 "DELIVERABLES:\n"
                 "1. Current state — what is happening right now?\n"
                 "2. Recent developments — last 6 months\n"
@@ -51,7 +51,7 @@ class ResearchCrew:
 
         analysis_task = Task(
             description=(
-                f"Analyze all research findings about \"{self.topic}\"\n\n"
+                "Analyze all research findings about \"{topic}\"\n\n"
                 "DELIVERABLES:\n"
                 "1. Top 5 key insights (numbered, specific)\n"
                 "2. Trend analysis\n"
@@ -73,7 +73,7 @@ class ResearchCrew:
 
         writing_task = Task(
             description=(
-                f"Write a professional report on \"{self.topic}\"\n\n"
+                "Write a professional report on \"{topic}\"\n\n"
                 "REQUIRED STRUCTURE:\n"
                 "# [Compelling Title]\n"
                 "## Executive Summary\n"

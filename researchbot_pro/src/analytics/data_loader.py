@@ -39,7 +39,7 @@ class DataLoader:
             "columns"       : len(df.columns),
             "column_names"  : df.columns.tolist(),
             "numeric_cols"  : numeric_cols,
-            "categorical_cols": df.select_dtypes(include=["object"]).columns.tolist(),
+            "categorical_cols": df.select_dtypes(include=["object", "string"]).columns.tolist(),
             "missing_values": df.isnull().sum().to_dict(),
             "missing_pct"   : (df.isnull().sum() / len(df) * 100).round(2).to_dict(),
             "dtypes"        : df.dtypes.astype(str).to_dict(),
@@ -67,7 +67,7 @@ class DataLoader:
                 "median" : round(float(df[col].median()), 2),
                 "max"    : round(float(df[col].max()), 2),
                 "min"    : round(float(df[col].min()), 2),
-                "std"    : round(float(df[col].std()), 2),
+                "std"    : (None if pd.isna(df[col].std()) else round(float(df[col].std()), 2)),
             }
 
         return kpis
